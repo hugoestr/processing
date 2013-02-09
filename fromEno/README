@@ -1,0 +1,12 @@
+fromEno
+========
+
+This is a project inspired by listening to a lecture that Brian Eno gave at some Russian university. http://tumblr.austinkleon.com/post/29280342143
+
+He described an art video that he made where the screen slowly changed colors. Or at least that is how I misheard it. So I created a project that emulates that idea.
+
+As I remember it, the idea is that it would change color so slowly that you wouldn't be able to perceive it. So I wanted to create something that had the same feel but that changed color faster.
+
+My other change to Eno's concept is that the color swing back and forth on the RGB values. So in a way they are three pendulums. I added a few elements of randomness for the initial values and for the speed at which they change.
+
+As of right now, all what it does is change color, but I want to create tones as well that will change as time goes by.
