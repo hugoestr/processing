@@ -1,3 +1,6 @@
+// It emulates with colors 
+// what Steve Reich did with Pendulum Music
+
 
 SwingingRGB a, b, c;
 int limit, start;
@@ -18,14 +21,16 @@ void draw() {
   a.update(); b.update(); c.update();
 }
 
-class SwingingRGB {
-  int value, direction, speed, tick;
+class SwingingToRestRGB {
+  int value, direction, speed, tick, swing_limit;
    
   SwingingRGB(){
    tick = 0;
    value = (int)random(255);
+   swing_limit = (int)random(1,128);
    
-   changeSpeed();
+   speed = 10;
+   //changeSpeed();
    setDirection();
   }
   
@@ -39,9 +44,16 @@ class SwingingRGB {
   }
  
  void bounceOnEdge(){
-   if (value == 255 || value == 0){
+   int upper, lower;
+   upper = 255 - swing_limit;
+   lower = swing_limit;
+   
+   if (value >= upper|| value <= 0){
      direction *= -1;
-     changeSpeed();
+     
+     if (swing_limit != 127){
+      swing_limit++; 
+     }
    }
  }
  
