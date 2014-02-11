@@ -1,27 +1,45 @@
 Void theVoid;
+int start;
 
 void setup(){
   int width = 800;
   int height = 600;
   int lifeExpectency = 300;
-  size(width, height);
+  float rate = 0.5;
+  int throttle = 5;
   
-  theVoid = new Void(width, height, lifeExpectency);
+  
+  size(width, height);
+  theVoid = new Void(width, height, lifeExpectency, throttle, rate);
+  
+  start = millis();
+  //frameRate(60);
+
 }
 
 void draw() {
-  theVoid.update();
+
+  
+  //if (millis() - start > 100){
+    background(0);
+    theVoid.update();
+  //  start = millis();
+  //}
+
 }
 
 
 class Void {
+ float rate;
  ArrayList<Life> beings;
- int width, height, lifeExpectency;
+ int max, width, height, lifeExpectency;
  
- public Void(int w, int h, int le){
+ public Void(int w, int h, int le, int m, float r){
    width = w;
    height = h;
    lifeExpectency = le;
+   max = m;
+   rate = 5;
    
    beings = new ArrayList<Life>();
  }
@@ -32,10 +50,11 @@ class Void {
  } 
   
  private void spawn(){
-   int create = 1; //(int)Math.floor(random(1));
+   int create = (int)Math.floor(random(100000));
+   int frequency = 99555;
    
-   if (create == 1){
-      Life baby = new Life(width, height, lifeExpectency);
+   if (beings.size() < max && create >= frequency){
+      Life baby = new Life(width, height, lifeExpectency, rate);
       beings.add(baby);
    }
   
@@ -57,19 +76,39 @@ class Void {
 
 class Life {
   double x, y, frequency;
-  int lifetime, years;
+  float r, g, b, rate;
+  int lifetime, years, tick;
   
-  public Life(int width, int height, int lifeExpectency){
+  public Life(int width, int height, int lifeExpectency, float r){
     years = 0;
+    rate = r;
+    
     x = random(width);
     y = random(height);
+
+    r = random(256);  
+    g = random(256);   
+    b = random(256);     
     
     lifetime = (int)random(lifeExpectency);
     frequency = random(20, 20000);
   }
   
   public void update(){
-    ellipse((float)x, (float)y, (float)years, (float)years);
+    float size = 0;
+    //fill(r, g, b);
+   // stroke(r, g, b);
+   
+   fill(0);
+   stroke(0);
+    
+    if (years < (lifetime / 2)){
+      size = (float)years; 
+    } else {
+      size = (lifetime /2) - (years - lifetime / 2);
+    }
+  
+    ellipse((float)x, (float)y, size, size);
     years++;
   } 
   
